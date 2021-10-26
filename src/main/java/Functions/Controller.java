@@ -9,11 +9,34 @@ import java.io.*;
 
 public class Controller extends Component implements ActionListener {
 
+    private File file;
+
     public void actionPerformed(ActionEvent e){
 
     }
 
-    //método para guardar archivo
+    //método para establecer el título del archivo en el propio marco del IDE
+    public String setTitle(){
+        String title;
+        if(file != null){
+            title = file.getName();
+        }else{
+            title = null;
+        }
+        return title;
+    }
+
+    //método para crear un nuevo archivo
+    public void newFile(String text){
+        int option = JOptionPane.showConfirmDialog(null, "¿Desea Guardar su archivo actual antes de crear uno nuevo?",
+                "Confirmación", JOptionPane.YES_NO_OPTION);
+        if(option == JOptionPane.YES_OPTION){
+            save(text);
+            file = null;
+        }
+    }
+
+    //método para guardar archivo como
     public void saveAs(String text){
         JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -22,7 +45,7 @@ public class Controller extends Component implements ActionListener {
             chooser.addChoosableFileFilter(new FileNameExtensionFilter("Java files (*.java)", "java"));
             chooser.setAcceptAllFileFilterUsed(false);
         int option = chooser.showSaveDialog(this);
-        File file = chooser.getSelectedFile();
+        file = chooser.getSelectedFile();
 
         if(option == JFileChooser.APPROVE_OPTION){
             if(!file.getName().endsWith(".java")&&!file.getName().endsWith(".txt")){
@@ -33,7 +56,9 @@ public class Controller extends Component implements ActionListener {
                 if(!file.exists()){
                     try(FileWriter writer = new FileWriter(file)){
                         writer.write(text);
+                        writer.close();
                         JOptionPane.showMessageDialog(null, "archivo guardado exitosamente");
+                        setTitle();
 
                     }
                     catch (IOException ex){
@@ -44,9 +69,27 @@ public class Controller extends Component implements ActionListener {
                 else{
                     JOptionPane.showMessageDialog(null, "el archivo "+file.getName()+
                             " ya existe. Seleccione otro nombre");
+                    file = null;
                 }
             }
         }
+    }
+
+    //método para guardar un archivo ya existente
+    public void save(String text){
+        if(file != null){
+            try {
+                FileWriter writer = new FileWriter(file, false);
+                writer.write(text);
+                writer.close();
+                JOptionPane.showMessageDialog(null, "Archivo guardado exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            saveAs(text);
+        }
+
     }
     //metodo para abrir un archivo
     public String openFile(){
@@ -58,7 +101,7 @@ public class Controller extends Component implements ActionListener {
             chooser.addChoosableFileFilter(new FileNameExtensionFilter("Java files (*.java)", "java"));
             chooser.setAcceptAllFileFilterUsed(false);
         int option = chooser.showOpenDialog(this);
-        File file = chooser.getSelectedFile();
+        file = chooser.getSelectedFile();
 
         if(option == JFileChooser.APPROVE_OPTION){
             StringBuilder sb = new StringBuilder();
@@ -80,15 +123,7 @@ public class Controller extends Component implements ActionListener {
 
     //metodo para "imprimir" el archivo
     public void printFile(){
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Text files (*.txt)", "txt"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Java files (*.java)", "java"));
-        chooser.setAcceptAllFileFilterUsed(false);
-        int choose = chooser.showOpenDialog(this);
-        File file = chooser.getSelectedFile();
-        if(choose == JFileChooser.APPROVE_OPTION){
+
             if(file != null){
                 int option = JOptionPane.showConfirmDialog(null,"¿Desea imprimir el archivo "+file.getName()+"?", "Imprimir archivo", JOptionPane.YES_NO_OPTION);
                 if(option == JOptionPane.YES_OPTION){
@@ -96,12 +131,11 @@ public class Controller extends Component implements ActionListener {
                 }else{
                     JOptionPane.showMessageDialog(null, "Cancelando operación");
                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Abra algún archivo o Guarde su archivo antes de imprimir");
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Cancelando operación");
-        }
-
     }
+
     //metodo para deshacer cambios
     //metodo para ver información sobre esta aplicación
     public void infoShow(){

@@ -8,9 +8,11 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 public class Ventana extends JFrame {
+
 
     //panel principal
     private JPanel mainPanel;
@@ -60,6 +62,7 @@ public class Ventana extends JFrame {
     private JButton openFileButton;
     private JButton saveFileButton;
 
+    String text = textArea1.getText();
     //constructor de la Ventana
     public Ventana(){
         undoer = new UndoManager();
@@ -174,26 +177,53 @@ public class Ventana extends JFrame {
                 menuHelpHelp.setForeground(Color.WHITE);
 
         //action listeners
+        //action listener para crear un nuevo archivo
+        menuFileNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textArea1.getText();
+                cont.newFile(text);
+                textArea1.setText(null);
+                setTitle(null);
+            }
+        });
+
         menuFileSaveAs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = textArea1.getText();
                 cont.saveAs(text);
+                setTitle(cont.setTitle());
 
             }
         });
+
+        //action listener para guardar un archivo
+        menuFileSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textArea1.getText();
+                cont.save(text);
+                setTitle(cont.setTitle());
+            }
+        });
+
         saveFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = textArea1.getText();
-                cont.saveAs(text);
+                cont.save(text);
+                setTitle(cont.setTitle());
             }
         });
+
+        //action listener para abrir un archivo
         menuFileOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = cont.openFile();
                 textArea1.setText(text);
+                setTitle(cont.setTitle());
             }
         });
         openFileButton.addActionListener(new ActionListener() {
@@ -201,8 +231,10 @@ public class Ventana extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String text = cont.openFile();
                 textArea1.setText(text);
+                setTitle(cont.setTitle());
             }
         });
+
         //conjunto de métodos para añadir la funcionalidad hacer/deshacer
         //añadimos el EditListener al textArea
         textArea1.getDocument().addUndoableEditListener(new UndoableEditListener() {
@@ -335,7 +367,7 @@ public class Ventana extends JFrame {
         this.setJMenuBar(menu);
         this.add(panel1);
         this.setVisible(true);
-        this.setPreferredSize(new Dimension(500,500));
+        this.setPreferredSize(new Dimension(getMaximumSize()));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setIconImage(getToolkit().getImage(getClass().getResource("/icon3.png")));
         this.pack();
