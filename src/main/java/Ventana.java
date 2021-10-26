@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Ventana extends JFrame {
 
@@ -343,25 +345,37 @@ public class Ventana extends JFrame {
                 cont.printFile();
             }
         });
+
+        //action listener para ver página de información
         menuHelpInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cont.infoShow();
+                cont.infoPage();
             }
         });
 
-        /*menuHelpHelp.addActionListener(new ActionListener() {
+        //action listener para ver página de ayuda
+        menuHelpHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JEditorPane ep = null;
-                try {
-                    ep = new JEditorPane("<html><a href=\"http://google.com/\"a link</a>");
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "error");
-                }
-                cont.helpPage(ep);
+                cont.helpPage();
             }
-        });*/
+        });
+
+        //action listener para ejecución de .java
+        menuToolsRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cont.runJavaFile();
+            }
+        });
+
+        runButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cont.runJavaFile();
+            }
+        });
 
         //añadir componentes a la ventana
         this.setJMenuBar(menu);

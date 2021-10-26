@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Controller extends Component implements ActionListener {
 
@@ -138,12 +140,37 @@ public class Controller extends Component implements ActionListener {
 
     //metodo para deshacer cambios
     //metodo para ver información sobre esta aplicación
-    public void infoShow(){
-        JOptionPane.showMessageDialog(null, "Esta aplicación fue creada por Jaime Salcedo Vallejo"
-                +"\n"+"Lenguaje usado: Java");
+    public void infoPage() {
+        Desktop link = Desktop.getDesktop();
+        try {
+            link.browse(new URI("http://localhost:63342/ProyectoIDE_JaimeSalcedoVallejo/information.html?_ijt=50ir72avle9071vjpfhkfodnp1&_ij_reload=RELOAD_ON_SAVE"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
+        }
     }
     //metodo para ver una página web para ayuda
     public void helpPage(){
-        JOptionPane.showMessageDialog(null, "<html><a href=\"http://google.com/\">Página web de ayuda</a></html>");
+        Desktop link = Desktop.getDesktop();
+        try {
+            link.browse(new URI("https://www.youtube.com/watch?v=BBJa32lCaaY&ab_channel=LegacyPNDA"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //método para poder ejecutar un programa java
+    public void runJavaFile(){
+        if(file != null && file.getName().endsWith(".java")){
+            try {
+                String [] cmd = {"java ", file.getName()};
+                Runtime.getRuntime().exec(cmd);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione un archivo .java");
+            }
+        }
     }
 }
