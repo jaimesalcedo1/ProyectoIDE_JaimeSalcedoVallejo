@@ -213,7 +213,7 @@
                         <properties>
                           <background color="-13618896"/>
                           <disabledTextColor color="-10682175"/>
-                          <font name="JetBrains Mono" size="10" style="2"/>
+                          <font name="JetBrains Mono" style="0"/>
                           <foreground color="-262153"/>
                           <selectionColor color="-10682175"/>
                         </properties>

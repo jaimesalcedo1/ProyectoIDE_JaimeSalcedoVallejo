@@ -184,6 +184,7 @@ public class Ventana extends JFrame {
                 cont.newFile(text);
                 textArea1.setText(null);
                 setTitle(null);
+                outputTerminal.setText("");
             }
         });
 
@@ -193,6 +194,7 @@ public class Ventana extends JFrame {
                 String text = textArea1.getText();
                 cont.saveAs(text);
                 setTitle(cont.setTitle());
+                outputTerminal.setText("");
 
             }
         });
@@ -204,6 +206,7 @@ public class Ventana extends JFrame {
                 String text = textArea1.getText();
                 cont.save(text);
                 setTitle(cont.setTitle());
+                outputTerminal.setText("");
             }
         });
 
@@ -213,6 +216,7 @@ public class Ventana extends JFrame {
                 String text = textArea1.getText();
                 cont.save(text);
                 setTitle(cont.setTitle());
+                outputTerminal.setText("");
             }
         });
 
@@ -223,6 +227,7 @@ public class Ventana extends JFrame {
                 String text = cont.openFile();
                 textArea1.setText(text);
                 setTitle(cont.setTitle());
+                outputTerminal.setText("");
             }
         });
         openFileButton.addActionListener(new ActionListener() {
@@ -231,6 +236,7 @@ public class Ventana extends JFrame {
                 String text = cont.openFile();
                 textArea1.setText(text);
                 setTitle(cont.setTitle());
+                outputTerminal.setText("");
             }
         });
 
@@ -360,25 +366,11 @@ public class Ventana extends JFrame {
             }
         });
 
-        //action listener para ejecución de .java
-        menuToolsRun.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cont.runJavaFile();
-            }
-        });
-
-        runButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cont.runJavaFile();
-            }
-        });
-
         //action listener para compilado de .java
         menuToolsCompile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 cont.compileJavaFile();
             }
         });
@@ -387,6 +379,33 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cont.compileJavaFile();
+            }
+        });
+
+        //action listener para ejecución de .java
+        menuToolsRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textArea1.getText();
+                cont.save(text);
+                outputTerminal.setText(cont.runJavaFile());
+            }
+        });
+
+        runButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textArea1.getText();
+                cont.save(text);
+                outputTerminal.setText(cont.runJavaFile());
+            }
+        });
+
+        //action listener para detener la ejecución del programa
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                outputTerminal.setText("");
             }
         });
 

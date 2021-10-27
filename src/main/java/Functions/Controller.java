@@ -35,6 +35,8 @@ public class Controller extends Component implements ActionListener {
         if(option == JOptionPane.YES_OPTION){
             save(text);
             file = null;
+        }else{
+            file = null;
         }
     }
 
@@ -53,6 +55,7 @@ public class Controller extends Component implements ActionListener {
             if(!file.getName().endsWith(".java")&&!file.getName().endsWith(".txt")){
                 File javaFile = new File(file.getPath()+".java");
                 file = javaFile;
+                setTitle();
             }
             if(file != null){
                 if(!file.exists()){
@@ -84,14 +87,14 @@ public class Controller extends Component implements ActionListener {
                 FileWriter writer = new FileWriter(file, false);
                 writer.write(text);
                 writer.close();
-                JOptionPane.showMessageDialog(null, "Archivo guardado exitosamente");
+                //JOptionPane.showMessageDialog(null, "Archivo guardado exitosamente");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else{
             saveAs(text);
         }
-
+        setTitle();
     }
     //metodo para abrir un archivo
     public String openFile(){
@@ -163,21 +166,6 @@ public class Controller extends Component implements ActionListener {
         }
     }
 
-    //método para poder ejecutar un programa java
-    public void runJavaFile(){
-        if(file != null && file.getName().endsWith(".java")){
-            compileJavaFile();
-            try{
-                Runtime.getRuntime().exec("cmd /c start cmd.exe /K java "+file.getAbsolutePath());
-            }catch(Exception ex){
-                System.out.println("ex: "+ex.getMessage());
-            }
-
-        }else{
-            JOptionPane.showMessageDialog(null, "seleccione un archivo java");
-        }
-    }
-
     //método para compilar un archivo .java
     public void compileJavaFile(){
         if(file != null && file.exists()){
@@ -187,10 +175,33 @@ public class Controller extends Component implements ActionListener {
                 System.out.println("ex: "+ex.getMessage());
             }
         }else{
-            JOptionPane.showMessageDialog(null, "seleccione un archivo .java");
+            JOptionPane.showMessageDialog(null, "no hay ningún archivo abierto/guardado" +
+                    "o no se trata de un archivo java");
         }
 
 
 
+    }
+
+    //método para poder ejecutar un programa java
+    public String runJavaFile(){
+        String line = null;
+
+        if(file.getName().endsWith(".java")){
+            compileJavaFile();
+            try{
+                String runCommand = "cmd /c java "+file.getAbsolutePath();
+                Process process = Runtime.getRuntime().exec(runCommand);
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(process.getInputStream())
+                );
+                line = br.readLine();
+            }catch(Exception ex){
+                System.out.println("ex: "+ex.getMessage());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "seleccione un archivo java");
+        }
+        return line;
     }
 }
