@@ -8,10 +8,7 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class Ventana extends JFrame {
 
@@ -58,7 +55,7 @@ public class Ventana extends JFrame {
     private JPanel TextAreaPanel;
     private JTree tree1;
     private JTextArea textArea1;
-    private JButton refactorButton;
+    private JButton compileButton;
     private JPanel rightToolbar;
     private JPanel leftToolbar;
     private JButton openFileButton;
@@ -339,6 +336,7 @@ public class Ventana extends JFrame {
             }
         });*/
 
+        //action listener para "imprimir" un archivo
         menuFilePrint.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -374,6 +372,21 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cont.runJavaFile();
+            }
+        });
+
+        //action listener para compilado de .java
+        menuToolsCompile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cont.compileJavaFile();
+            }
+        });
+
+        compileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cont.compileJavaFile();
             }
         });
 

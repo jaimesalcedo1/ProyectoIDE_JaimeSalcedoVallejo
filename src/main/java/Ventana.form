@@ -55,12 +55,12 @@
                       <visible value="true"/>
                     </properties>
                   </component>
-                  <component id="36a6f" class="javax.swing.JButton" binding="refactorButton">
+                  <component id="36a6f" class="javax.swing.JButton" binding="compileButton">
                     <constraints/>
                     <properties>
                       <borderPainted value="false"/>
                       <contentAreaFilled value="false"/>
-                      <icon value="refactor.png"/>
+                      <icon value="compile.png"/>
                       <preferredSize width="30" height="30"/>
                       <text value=""/>
                     </properties>

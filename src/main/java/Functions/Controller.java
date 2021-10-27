@@ -142,6 +142,7 @@ public class Controller extends Component implements ActionListener {
     //metodo para ver información sobre esta aplicación
     public void infoPage() {
         Desktop link = Desktop.getDesktop();
+        String wd = "user.dir";
         try {
             link.browse(new URI("http://localhost:63342/ProyectoIDE_JaimeSalcedoVallejo/information.html?_ijt=50ir72avle9071vjpfhkfodnp1&_ij_reload=RELOAD_ON_SAVE"));
         } catch (IOException ex) {
@@ -165,12 +166,31 @@ public class Controller extends Component implements ActionListener {
     //método para poder ejecutar un programa java
     public void runJavaFile(){
         if(file != null && file.getName().endsWith(".java")){
-            try {
-                String [] cmd = {"java ", file.getName()};
-                Runtime.getRuntime().exec(cmd);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Por favor, seleccione un archivo .java");
+            compileJavaFile();
+            try{
+                Runtime.getRuntime().exec("cmd /c start cmd.exe /K java "+file.getAbsolutePath());
+            }catch(Exception ex){
+                System.out.println("ex: "+ex.getMessage());
             }
+
+        }else{
+            JOptionPane.showMessageDialog(null, "seleccione un archivo java");
         }
+    }
+
+    //método para compilar un archivo .java
+    public void compileJavaFile(){
+        if(file != null && file.exists()){
+            try{
+                Runtime.getRuntime().exec("cmd /c javac "+file.getAbsolutePath());
+            }catch(Exception ex){
+                System.out.println("ex: "+ex.getMessage());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "seleccione un archivo .java");
+        }
+
+
+
     }
 }
