@@ -143,14 +143,12 @@ public class Controller extends Component implements ActionListener {
     //metodo para deshacer cambios
     //metodo para ver información sobre esta aplicación
     public void infoPage() {
-        Desktop link = Desktop.getDesktop();
-        String wd = "user.dir";
+        String wd = System.getProperty("user.dir");
         try {
-            link.browse(new URI("http://localhost:63342/ProyectoIDE_JaimeSalcedoVallejo/information.html?_ijt=50ir72avle9071vjpfhkfodnp1&_ij_reload=RELOAD_ON_SAVE"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (URISyntaxException ex) {
-            ex.printStackTrace();
+            Runtime.getRuntime().exec("cmd /c start chrome "+ wd + File.separator + "src"
+                    + File.separator + "main" + File.separator + "resources" + File.separator + "information.html");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     //metodo para ver una página web para ayuda

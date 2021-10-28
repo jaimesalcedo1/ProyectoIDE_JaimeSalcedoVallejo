@@ -180,7 +180,7 @@
                                 <properties>
                                   <background color="-14276826"/>
                                   <caretColor color="-16777216"/>
-                                  <font name="JetBrains Mono" style="0"/>
+                                  <font name="JetBrains Mono" size="14" style="1"/>
                                   <foreground color="-262153"/>
                                   <selectionColor color="-10682175"/>
                                 </properties>
