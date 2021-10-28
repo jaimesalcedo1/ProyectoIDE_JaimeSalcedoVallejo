@@ -55,7 +55,6 @@ public class Controller extends Component implements ActionListener {
             if(!file.getName().endsWith(".java")&&!file.getName().endsWith(".txt")){
                 File javaFile = new File(file.getPath()+".java");
                 file = javaFile;
-                setTitle();
             }
             if(file != null){
                 if(!file.exists()){
@@ -87,6 +86,7 @@ public class Controller extends Component implements ActionListener {
                 FileWriter writer = new FileWriter(file, false);
                 writer.write(text);
                 writer.close();
+                setTitle();
                 //JOptionPane.showMessageDialog(null, "Archivo guardado exitosamente");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -94,7 +94,6 @@ public class Controller extends Component implements ActionListener {
         }else{
             saveAs(text);
         }
-        setTitle();
     }
     //metodo para abrir un archivo
     public String openFile(){
@@ -167,28 +166,24 @@ public class Controller extends Component implements ActionListener {
     }
 
     //método para compilar un archivo .java
-    public void compileJavaFile(){
-        if(file != null && file.exists()){
+    public void compileJavaFile(String text){
+        save(text);
+        if(file.getName().endsWith(".java")){
             try{
                 Runtime.getRuntime().exec("cmd /c javac "+file.getAbsolutePath());
             }catch(Exception ex){
                 System.out.println("ex: "+ex.getMessage());
             }
         }else{
-            JOptionPane.showMessageDialog(null, "no hay ningún archivo abierto/guardado" +
-                    "o no se trata de un archivo java");
+            JOptionPane.showMessageDialog(null, "el archivo no se trata de un archivo java");
         }
-
-
-
     }
 
     //método para poder ejecutar un programa java
-    public String runJavaFile(){
+    public String runJavaFile(String text){
         String line = null;
-
+        compileJavaFile(text);
         if(file.getName().endsWith(".java")){
-            compileJavaFile();
             try{
                 String runCommand = "cmd /c java "+file.getAbsolutePath();
                 Process process = Runtime.getRuntime().exec(runCommand);

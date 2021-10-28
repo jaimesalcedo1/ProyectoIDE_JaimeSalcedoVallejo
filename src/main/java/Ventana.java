@@ -8,7 +8,10 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.io.Writer;
 
 public class Ventana extends JFrame {
 
@@ -321,26 +324,20 @@ public class Ventana extends JFrame {
             }
         });
 
-        /*textArea1.addKeyListener(new KeyListener() {
+        textArea1.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                int code = e.getKeyCode();
-                if (code == 9){
-
+                char tab = e.getKeyChar();
+                if(tab == KeyEvent.VK_TAB){
+                    undoer.undo();
+                    textArea1.replaceSelection("    ");
                 }
             }
-        });*/
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
 
         //action listener para "imprimir" un archivo
         menuFilePrint.addActionListener(new ActionListener() {
@@ -370,15 +367,16 @@ public class Ventana extends JFrame {
         menuToolsCompile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                cont.compileJavaFile();
+                String text = textArea1.getText();
+                cont.compileJavaFile(text);
             }
         });
 
         compileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cont.compileJavaFile();
+                String text = textArea1.getText();
+                cont.compileJavaFile(text);
             }
         });
 
@@ -387,8 +385,7 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = textArea1.getText();
-                cont.save(text);
-                outputTerminal.setText(cont.runJavaFile());
+                outputTerminal.setText(cont.runJavaFile(text));
             }
         });
 
@@ -396,8 +393,7 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = textArea1.getText();
-                cont.save(text);
-                outputTerminal.setText(cont.runJavaFile());
+                outputTerminal.setText(cont.runJavaFile(text));
             }
         });
 
