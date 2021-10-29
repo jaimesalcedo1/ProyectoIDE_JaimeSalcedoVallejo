@@ -147,16 +147,10 @@
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="fcfdd" class="javax.swing.JTree" binding="tree1" default-binding="true">
+                              <component id="d6feb" class="javax.swing.JList" binding="list1" default-binding="true">
                                 <constraints/>
                                 <properties>
-                                  <background color="-14276826"/>
-                                  <enabled value="true"/>
-                                  <expandsSelectedPaths value="true"/>
-                                  <focusable value="true"/>
-                                  <font name="JetBrains Mono"/>
-                                  <opaque value="true"/>
-                                  <visible value="true"/>
+                                  <background color="-14737377"/>
                                 </properties>
                               </component>
                             </children>

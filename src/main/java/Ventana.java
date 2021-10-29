@@ -60,13 +60,13 @@ public class Ventana extends JFrame {
     private JTextArea outputTerminal;
     private JPanel TreePanel;
     private JPanel TextAreaPanel;
-    private JTree tree1;
     private JTextArea textArea1;
     private JButton compileButton;
     private JPanel rightToolbar;
     private JPanel leftToolbar;
     private JButton openFileButton;
     private JButton saveFileButton;
+    private JList list1;
 
     //constructor de la Ventana
     public Ventana(){
