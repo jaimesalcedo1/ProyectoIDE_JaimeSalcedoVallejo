@@ -13,6 +13,10 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.Writer;
 
+/**
+ * Clase que implementa todos los elementos de la vista del IDE
+ * @author Jaime Salcedo Vallejo
+ */
 public class Ventana extends JFrame {
 
 
@@ -64,7 +68,6 @@ public class Ventana extends JFrame {
     private JButton openFileButton;
     private JButton saveFileButton;
 
-    String text = textArea1.getText();
     //constructor de la Ventana
     public Ventana(){
         undoer = new UndoManager();
@@ -324,6 +327,7 @@ public class Ventana extends JFrame {
             }
         });
 
+        //key listener para sustituir las tabulaciones por 4 espacios
         textArea1.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -415,6 +419,5 @@ public class Ventana extends JFrame {
         this.pack();
 
     }
-
 }
 
