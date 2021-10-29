@@ -9,6 +9,10 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Clase que contiene los atributos y métodos del controlador
+ * @author Jaime Salcedo Vallejo
+ */
 public class Controller extends Component implements ActionListener {
 
     private File file;
@@ -95,6 +99,7 @@ public class Controller extends Component implements ActionListener {
             saveAs(text);
         }
     }
+
     //metodo para abrir un archivo
     public String openFile(){
         String result = null;
@@ -140,7 +145,6 @@ public class Controller extends Component implements ActionListener {
             }
     }
 
-    //metodo para deshacer cambios
     //metodo para ver información sobre esta aplicación
     public void infoPage() {
         String wd = System.getProperty("user.dir");
@@ -177,7 +181,7 @@ public class Controller extends Component implements ActionListener {
         }
     }
 
-    //método para poder ejecutar un programa java
+    //método para poder ejecutar un programa .java
     public String runJavaFile(String text){
         String line = null;
         compileJavaFile(text);

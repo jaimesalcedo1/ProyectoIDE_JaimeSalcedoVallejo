@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.util.logging.Level;
 
+/**
+ * Clase App que contiene el main y el método necesario para iniciar el IDE
+ * @author Jaime Salcedo Vallejo
+ */
 public class App {
     public static void main(String[] args) {
         try {
